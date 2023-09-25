@@ -19,7 +19,7 @@ char cols [] = {
 ,PC13 // 12 col6 
 ,PA8 // 13 col7  
 //,PA11 // 13 col7
-,PA12 // 14 col8  
+,PB15 // 14 col8  
 ,PA15 // 15 col9  
 ,PB3 // 16 col10  
 ,PB4 // 17 col11  

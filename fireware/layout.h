@@ -1,5 +1,5 @@
-#ifndef layout
-#define layout
+#ifndef LAYOUT
+#define LAYOUT
 #include <key-position.hpp>
 typedef uint8_t SendableKey;
 class Layout {

@@ -30,7 +30,13 @@ public:
     memset(_pressMap, 0, _mapLength);
     memset(_currentPressMap, 0, _mapLength);
     //  disable all rows & cols
-    each_row { pinMode(rowPin, INPUT); }
+    //each_row { pinMode(rowPin, INPUT); }
+    for(char c = 0;c<_colCount;c++) {
+      pinMode(_colPins[c],INPUT);
+    }
+    for(char r = 0;r<_rowCount;r++) {
+      pinMode(_rowPins[r],INPUT);
+    }
   };
   void scan(std::function<void(char, char)> onKeyPressed,
             std::function<void(char, char)> onKeyReleased) {

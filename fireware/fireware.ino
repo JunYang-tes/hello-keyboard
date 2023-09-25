@@ -1,6 +1,10 @@
-#include "keyboard-scanner.hpp"
-#include "pins.hpp"
 #include <Keyboard.h>
+#define ROWS 5
+#include "pins.hpp"
+#include "keyboard-scanner.hpp"
+#include <Keyboard.h>
+#include "normal-layout.hpp"
+NormalLayout layout;
 KeyboardScanner scanner(
     rows,
     cols,
@@ -9,27 +13,25 @@ KeyboardScanner scanner(
 );
 void setup()
 {
-    Serial1.begin(115200);
-    Keyboard.begin();
+  Keyboard.begin();
 }
 void loop()
 {
-    scanner.scan(
+  delay(100);
+  scanner.scan(
         [](char row, char col) { 
-            String t="row:";
-            t+=row;
-            t+="col:";
-            t+=col;
-            t+="pressed";
-            Serial1.println(t);
+            uint8_t key = layout.keydown(KeyPosition(row,col));
+            if(key) {
+                Keyboard.press(key);
+            }
         },
         [](char row, char col) {
-            String t="row:";
-            t+=row;
-            t+="col:";
-            t+=col;
-            t+="released";
-            Serial1.println(t);
+            uint8_t key = layout.keydown(KeyPosition(row,col));
+            if(key) {
+                Keyboard.release(key);
+            } else {
+                Keyboard.releaseAll();
+            }
         }
     );
 }

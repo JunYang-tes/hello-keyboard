@@ -11,6 +11,7 @@
         "string_view": "cpp",
         "initializer_list": "cpp",
         "span": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "*.tcc": "cpp"
     }
 }

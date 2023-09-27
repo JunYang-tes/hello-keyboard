@@ -5,6 +5,7 @@
 #include <Keyboard.h>
 #include "normal-layout.hpp"
 #include "TPMouse.hpp"
+#include "display.hpp"
 
 NormalLayout layout;
 KeyboardScanner scanner(
@@ -15,6 +16,7 @@ KeyboardScanner scanner(
 );
 void setup()
 {
+  Display.setup();
   Serial1.begin(115200);
   Keyboard.begin();
   TPMouse.begin();

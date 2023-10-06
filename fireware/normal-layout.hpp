@@ -4,6 +4,7 @@
 #include "layout.h"
 #include "key-position.hpp"
 KeyPosition fn(4, 1);
+KeyPosition fn1(4,12);
 unsigned char keys[][14] = {
     {'`', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '-', '=', KEY_BACKSPACE},
     {KEY_TAB, 'q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p', '[', ']', '\\'},
@@ -32,6 +33,11 @@ public:
         if (pos == fn)
         {
             _fn_down = true;
+            return 0;
+        }
+        // toggle fn down;
+        if(pos == fn1) {
+            _fn_down = !_fn_down;
             return 0;
         }
         if(_fn_down) {

@@ -8,7 +8,6 @@
 #define DATA PB11
 #define REST PB10
 #define DEBOUNCE_MS 0
-#include <ssd1306.h>
 class TPMouse
 {
 private:

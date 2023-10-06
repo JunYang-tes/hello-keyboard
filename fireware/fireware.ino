@@ -25,6 +25,7 @@ void setup()
 void loop()
 {
   TPMouse.tick();
+  Display.update();
   scanner.scan(
         [](char row, char col) { 
             uint8_t key = layout.keydown(KeyPosition(row,col));

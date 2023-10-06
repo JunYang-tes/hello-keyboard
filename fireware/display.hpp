@@ -11,6 +11,8 @@ public:
     ssd1306_clearScreen();
     ssd1306_printFixed(0, 0, "Hello Keyboard", STYLE_NORMAL);
   }
+  void update() {
 
+  }
 } Display;
 #endif

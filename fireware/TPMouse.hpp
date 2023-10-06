@@ -12,6 +12,7 @@ class TPMouse
 {
 private:
   uint32_t _lastReadTime;
+  uint32_t _lastScrollTime;
   Trackpoint _tp = Trackpoint(CLK, DATA, REST);
 
 public:
@@ -31,7 +32,10 @@ public:
       auto data = _tp.readData();
       if (isTPButtonPressed(data.state, TP_MIDDLE) && data.y !=0)
       {
-        Mouse.move(0, 0, isYNegative(data.state) ? -1 : 1);
+        if(now - _lastScrollTime > 10) {
+          Mouse.move(0, 0, isYNegative(data.state) ? -1 : 1);
+          _lastScrollTime = now;
+        }
       }
       else
       {

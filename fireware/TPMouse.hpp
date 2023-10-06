@@ -7,7 +7,8 @@
 #define CLK PB1
 #define DATA PB11
 #define REST PB10
-#define DEBOUNCE_MS 20
+#define DEBOUNCE_MS 0
+#include <ssd1306.h>
 class TPMouse
 {
 private:
@@ -29,9 +30,9 @@ public:
     {
       _lastReadTime = now;
       auto data = _tp.readData();
-      if (isTPButtonPressed(data.state, TP_MIDDLE))
+      if (isTPButtonPressed(data.state, TP_MIDDLE) && data.y !=0)
       {
-        Mouse.move(0, 0, data.y);
+        Mouse.move(0, 0, isYNegative(data.state) ? -1 : 1);
       }
       else
       {

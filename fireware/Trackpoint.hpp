@@ -10,6 +10,7 @@
 #define TP_MIDDLE 2
 #define TP_RIGHT 1
 #define isTPButtonPressed(state, button) (((state) >> (button)) & 1)
+#define isYNegative(state) ((state >> 5) & 1)
 class Trackpoint {
 private:
   uint8_t _clkPin;

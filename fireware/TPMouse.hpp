@@ -32,7 +32,7 @@ public:
       auto data = _tp.readData();
       if (isTPButtonPressed(data.state, TP_MIDDLE) && data.y !=0)
       {
-        if(now - _lastScrollTime > 10) {
+        if(now - _lastScrollTime > 40) {
           Mouse.move(0, 0, isYNegative(data.state) ? -1 : 1);
           _lastScrollTime = now;
         }

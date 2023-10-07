@@ -15,4 +15,8 @@ struct KeyPosition {
 bool operator==(const KeyPosition& lhs, const KeyPosition& rhs) {
     return lhs.position == rhs.position;
 }
+bool operator!=(const KeyPosition& lhs, const KeyPosition& rhs) {
+    return !(lhs==rhs);
+}
+KeyPosition none(0x1111,0x1111);
 #endif

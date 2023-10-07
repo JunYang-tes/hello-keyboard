@@ -21,12 +21,16 @@ unsigned char fn_keys[][14] = {
 class NormalLayout : public Layout
 {
 private:
+    bool _fn_locked;
     bool _fn_down;
 
 public:
     NormalLayout()
     {
         _fn_down = false;
+    }
+    bool isFnLocked() {
+        return _fn_locked;
     }
     SendableKey keydown(KeyPosition pos)
     {
@@ -38,6 +42,7 @@ public:
         // toggle fn down;
         if(pos == fn1) {
             _fn_down = !_fn_down;
+            _fn_locked = _fn_down;
             return 0;
         }
         if(_fn_down) {
@@ -50,6 +55,7 @@ public:
         if (pos == fn)
         {
             _fn_down = false;
+            _fn_locked = false;
             return 0;
         };
         if(_fn_down) {

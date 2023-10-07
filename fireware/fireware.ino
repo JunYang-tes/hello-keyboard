@@ -17,6 +17,7 @@ KeyboardScanner scanner(
 void setup()
 {
   Display.setup();
+  Display.setScene(&status);
   Serial1.begin(115200);
   Keyboard.begin();
   TPMouse.begin();
@@ -25,10 +26,11 @@ void setup()
 void loop()
 {
   TPMouse.tick();
-  Display.update();
+  Display.show();
   scanner.scan(
         [](char row, char col) { 
             uint8_t key = layout.keydown(KeyPosition(row,col));
+            status.setKeyPosition(KeyPosition(row,col));
             if(key) {
                 Keyboard.press(key);
             }
@@ -42,4 +44,5 @@ void loop()
             }
         }
     );
+  status.setFnLocked(layout.isFnLocked());
 }

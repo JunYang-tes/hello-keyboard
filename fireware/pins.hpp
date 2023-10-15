@@ -24,7 +24,7 @@ char cols [] = {
 ,PB3 // 16 col10  
 ,PB4 // 17 col11  
 ,PB5 // 18 col12  
-,PB8 // 19 col13  
+,PB14 // 19 col13  
 }; // PA2 - 7
 
 #endif

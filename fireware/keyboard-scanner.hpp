@@ -40,25 +40,25 @@ public:
   };
   void scan(std::function<void(char, char)> onKeyPressed,
             std::function<void(char, char)> onKeyReleased) {
-    for (char c = 0; c < _colCount; c++) {
-      char colPin = _colPins[c];
-      pinMode(colPin, OUTPUT);
-      digitalWrite(colPin, LOW);
-      for (char r = 0; r < _rowCount; r++) {
-        char rowPin = _rowPins[r];
-        pinMode(rowPin, INPUT_PULLUP);
-        char mapIndex = c + r * (_colCount);
+    for (char rowIndex = 0; rowIndex < _rowCount; rowIndex++) {
+      char rowPin = _rowPins[rowIndex];
+      pinMode(rowPin, OUTPUT);
+      digitalWrite(rowPin, LOW);
+      for (char colIndex = 0; colIndex < _colCount; colIndex++) {
+        char colPin = _colPins[colIndex];
+        pinMode(colPin, INPUT_PULLUP);
+        char mapIndex =colIndex + rowIndex * (_colCount); 
         char byteIndex = mapIndex / 8;
         char bitIndex = mapIndex % 8;
-        if (digitalRead(rowPin) == LOW) {
+        if (digitalRead(colPin) == LOW) {
           delay(10);
-          if (digitalRead(rowPin) == LOW) {
+          if (digitalRead(colPin) == LOW) {
             // pressed
             if (!is_pressed(_currentPressMap, byteIndex, bitIndex)) {
               // newly pressed
               set_pressed(_currentPressMap, byteIndex, bitIndex);
               if (onKeyPressed) {
-                onKeyPressed(r, c);
+                onKeyPressed(rowIndex,colIndex);
               }
             }
           }
@@ -66,12 +66,12 @@ public:
           // newly released
           clear_pressed(_currentPressMap, byteIndex, bitIndex);
           if (onKeyReleased) {
-            onKeyReleased(r, c);
+            onKeyReleased(rowIndex,colIndex);
           }
         }
-        pinMode(rowPin, INPUT);
+        pinMode(colPin, INPUT);
       }
-      pinMode(colPin, INPUT);
+      pinMode(rowPin, INPUT);
     }
   }
 };

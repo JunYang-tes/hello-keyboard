@@ -1,6 +1,5 @@
 #ifndef TPMOUSE
 #define TPMOUSE
-#include "HardwareSerial.h"
 #include "Trackpoint.hpp"
 #include "wiring_time.h"
 #include <Mouse.h>
@@ -39,7 +38,7 @@ public:
       }
       else
       {
-        Mouse.move(data.x, -data.y);
+        Mouse.move(-data.x, data.y);
       }
       if (isTPButtonPressed(data.state, TP_LEFT))
       {

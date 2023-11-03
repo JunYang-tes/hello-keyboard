@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <functional>
+#include <memory>
 #define each_row                                                               \
   for (char r = 0, rowPin = _rowPins[r]; r < _rowCount;                        \
        r++, rowPin = _rowPins[r])
@@ -17,20 +18,15 @@ private:
 
   // bytes
   char _mapLength;
-  char *_currentPressMap;
-  char *_pressMap;
+  std::unique_ptr<char[]> _currentPressMap;
 
 public:
   KeyboardScanner(char *rowPins, char *colPins, char rowCount, char colCount)
       : _rowPins(rowPins), _colPins(colPins), _rowCount(rowCount),
         _colCount(colCount) {
     _mapLength = ceil(rowCount * colCount / 8.0);
-    _pressMap = new char(_mapLength);
-    _currentPressMap = new char(_mapLength);
-    memset(_pressMap, 0, _mapLength);
-    memset(_currentPressMap, 0, _mapLength);
+    _currentPressMap = std::make_unique<char[]>(_mapLength);
     //  disable all rows & cols
-    //each_row { pinMode(rowPin, INPUT); }
     for(char c = 0;c<_colCount;c++) {
       pinMode(_colPins[c],INPUT);
     }

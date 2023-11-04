@@ -6,6 +6,7 @@
 #include "normal-layout.hpp"
 #include "TPMouse.hpp"
 #include "display.hpp"
+#include <memory>
 
 NormalLayout layout;
 KeyboardScanner scanner(
@@ -36,11 +37,25 @@ void loop()
             }
         },
         [](char row, char col) {
-            uint8_t key = layout.keyup(KeyPosition(row,col));
-            if(key) {
-                Keyboard.release(key);
+            auto key = layout.keyup(KeyPosition(row,col));
+            if(key.is_single_key) {
+              if(key.key) {
+                Keyboard.release(key.key);
+              }
             } else {
-                Keyboard.releaseAll();
+              auto& key_seq = key.keys;
+              if(key_seq->ctrl) {
+                Keyboard.press(KEY_LEFT_CTRL);
+              }
+              for(char i =0;i<key_seq->get_size();i++) {
+                Keyboard.press(key_seq->keys[i]);
+              }
+              for(char i =0;i<key_seq->get_size();i++) {
+                Keyboard.release(key_seq->keys[i]);
+              }
+              if(key_seq->ctrl) {
+                Keyboard.release(KEY_LEFT_CTRL);
+              }
             }
         }
     );

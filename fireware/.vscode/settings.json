@@ -12,6 +12,7 @@
         "initializer_list": "cpp",
         "span": "cpp",
         "format": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "cstdint": "cpp"
     }
 }
